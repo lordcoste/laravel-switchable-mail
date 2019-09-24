@@ -17,13 +17,21 @@ class MailDriver
         if ($multiDrivers = config('switchable-mail', [])) {
             $recipientsDomains = SwiftMessageHelper::getRecipientsDomains($message);
 
-            return key(array_filter(
+            $driver = key(array_filter(
                 $multiDrivers,
                 function ($value) use ($recipientsDomains) {
                     return count(array_intersect($value, $recipientsDomains)) > 0;
                 },
                 ARRAY_FILTER_USE_BOTH
             ));
+
+            $from = config('mail.from');
+
+            if (isset($from[$driver])) {
+                $message->setFrom([$from[$driver]['address'] => $from[$driver]['name']]);
+            }
+
+            return $driver;
         }
     }
 }
