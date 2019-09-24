@@ -21,7 +21,7 @@
             "email": "elf.sundae@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "KVZ\\Laravel\\SwitchableMail\\": "src/"
