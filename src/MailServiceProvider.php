@@ -95,6 +95,9 @@ class MailServiceProvider extends ServiceProvider
     protected function setMailerDependencies($mailer, $app)
     {
         // parent::setMailerDependencies($mailer, $app);
+        if ($app->bound('queue')) {
+            $mailer->setQueue($app['queue']);
+        }
 
         $mailer->setSwiftMailerManager($app['swift.mailer.manager']);
     }
